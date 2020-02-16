@@ -13,5 +13,4 @@ util.sendResponse= function(res, rows) {
     res.write(output);
     res.end();  
 };
-
 module.exports= util;
