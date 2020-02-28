@@ -5,7 +5,7 @@ var apiCall = require('./API_Call');
 
 //기본 메인 페이지
 server.get('/', function(req, res) {
-    console.log('/ 요청됨.');
+    console.log('/ 요청.');
     
     req.app.render('index', '', function(err, html) {
         if (err) {
