@@ -78,11 +78,8 @@ server.post('/postList.do', function (req, res) {
 //API 요청 예시
 server.get('/dnfServerList.do', function (req, res) {
     console.log('/dnfServerList.do 요청됨');
-
-    var data = req.query;
     console.log(req.query.characterName)
     console.log(req.query.jobId)
-
     var apiData = apiCall.API_Call('get', 'dnfServerList');
     apiData.send([], function (err, result) {
         if (!err) {
@@ -95,7 +92,6 @@ server.get('/dnfServerList.do', function (req, res) {
 
 server.get('/postgresReqExample.do', function(req, res) {
     var data = req.query;
-
     var sql = `SELECT * FROM test1 WHERE id = $1 AND password = $2`
     var dbParams = [data.lng, data.lat]
     database.PgQuery(res, sql, dbParams, function(err, rows) {
