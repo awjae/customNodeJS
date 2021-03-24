@@ -6,7 +6,7 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || 3000;
-    this.apiURL = "/api/lighthouse";
+    this.apiURL = "/api";
     this.serviceURL = "/";
     // Middlewares
     this.middlewares();

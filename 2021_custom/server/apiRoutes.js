@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const apiController = require('./apiController');
+const apiController = require('./controller/apiController');
 
 router.get("/hi", apiController.apiTestFunc);
 

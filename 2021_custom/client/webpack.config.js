@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const port = process.env.PORT || 3010;
 const path = require('path');
 
@@ -32,11 +33,9 @@ module.exports = {
       }
     ],
   },
-//   plugins: [
-//     new HtmlWebpackPlugin({
-//       template: 'public/index.html',
-//     })
-//   ],
+  plugins: [
+    new HtmlWebpackPlugin()
+  ],
   devServer: {
     //host: '10.80.14.39',
     host: 'localhost',

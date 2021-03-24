@@ -4,7 +4,7 @@
   "description": "A templete of custom nodejs",
   "main": "main.js",
   "scripts": {
-    "start": "node server/server"
+    "server": "node server/server"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "dependencies": {
     "cors": "2.8.5",
     "express": "4.17.1",
+    "express-es6-template-engine": "^2.2.3",
     "mysql": "2.17.1",
     "request": "^2.88.0"
   }
