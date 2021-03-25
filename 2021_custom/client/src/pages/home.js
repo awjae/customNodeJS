@@ -1,12 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const Home = () => {
   return (
     <div className="container">
-      <h1>Hello World!</h1>
+      <Title>Hello World!</Title>
       <p>Webpack + Babel + React + Sass + React router</p>
     </div>
   );
 };
 
 export default Home;
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
