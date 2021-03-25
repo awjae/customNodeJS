@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/main.scss'
+import './styles/reset.css';
+import './styles/main.scss';
 import App from './app.js';
 
 const reactapp = document.createElement("div");

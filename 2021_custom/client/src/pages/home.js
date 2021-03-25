@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="container">
       <Title>Hello World!</Title>
-      <p>Webpack + Babel + React + Sass + React router</p>
+      <p>Webpack + Babel + React + React router + </p>
     </div>
   );
 };
