@@ -6,6 +6,9 @@ import rename from 'gulp-rename';
 import cleanCSS from 'gulp-clean-css';
 import del from 'del';
 import fileinclude from 'gulp-file-include';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
 // import imagemin from 'gulp-imagemin';
 import {create as bsCreate} from 'browser-sync';
 const browserSync = bsCreate();
@@ -13,6 +16,10 @@ const browserSync = bsCreate();
 const paths = {
   styles: {
     src: 'src/styles/*.css',
+    dest: 'dist/'
+  },
+  styles_scss: {
+    src: 'src/styles/*.scss',
     dest: 'dist/'
   },
   scripts: {
@@ -34,13 +41,18 @@ function clean() {
 }
 
 function styles() {
-  return gulp.src(paths.styles.src)
+  return gulp.src([paths.styles.src, paths.styles_scss.src])
+    .pipe(sass({
+      outputStyle:  'expanded',
+      sourceComments:  false
+    }).on('error', sass.logError)) // sass 옵션
     .pipe(cleanCSS())
     // pass in options to the stream
-    .pipe(rename({
-      basename: 'main',
-      suffix: '.min'
-    }))
+    .pipe(concat('main.min.css'))
+    // .pipe(rename({
+    //   basename: 'main',
+    //   suffix: '.min'
+    // }))
     .pipe(gulp.dest(paths.styles.dest));
 }
 
