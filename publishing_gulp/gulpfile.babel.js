@@ -12,6 +12,8 @@ const sass = gulpSass(dartSass);
 // import imagemin from 'gulp-imagemin';
 import {create as bsCreate} from 'browser-sync';
 const browserSync = bsCreate();
+import fs from 'fs';
+import url from 'url';
 
 const paths = {
   styles: {
@@ -88,7 +90,13 @@ function images() {
 }
 
 function browserSyncFunc() {
-  browserSync.init({ port : 3333, server: { baseDir: 'dist' } });
+  browserSync.init({ 
+    port : 3333, 
+    server: { 
+      baseDir: 'dist',
+      directory: true
+    } 
+  });
 }
 
 exports.includeTask = includeTask;
