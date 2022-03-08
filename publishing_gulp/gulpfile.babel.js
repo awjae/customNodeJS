@@ -67,11 +67,17 @@ function scripts() {
     .pipe(browserSync.reload( {stream : true} ));
 }
 
+function duplicateLib() {
+  return gulp.src("src/lib/*") 
+  .pipe(gulp.dest('dist/lib'));
+}
+
 function watchFiles() {
   gulp.watch(paths.scripts.src, scripts);
   gulp.watch(paths.styles.src, styles);
   gulp.watch(paths.html.src, includeTask);
 }
+
 
 function includeTask () {
     return gulp.src(["src/html/main/*", // ★★★★ 불러올 파일의 위치 
@@ -103,6 +109,7 @@ exports.includeTask = includeTask;
 exports.delete = clean
 exports.scripts = scripts
 exports.styles = styles
+exports.duplicateLib = duplicateLib
 exports.default = function() {
   return gulp.src('src/scripts/*.js')
   .pipe(babel())
@@ -111,4 +118,4 @@ exports.default = function() {
   .pipe(gulp.dest('dist'));
 }
 
-exports.build = gulp.series(clean, gulp.parallel(styles, scripts, includeTask, images, watchFiles, browserSyncFunc));
+exports.build = gulp.series(clean, gulp.parallel(duplicateLib, styles, scripts, includeTask, images, watchFiles, browserSyncFunc));
