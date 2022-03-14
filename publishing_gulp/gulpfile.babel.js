@@ -55,7 +55,8 @@ function styles() {
     //   basename: 'main',
     //   suffix: '.min'
     // }))
-    .pipe(gulp.dest(paths.styles.dest));
+    .pipe(gulp.dest(paths.styles.dest))
+    .pipe(browserSync.reload( {stream : true} ));
 }
 
 function scripts() {
@@ -74,7 +75,8 @@ function duplicateLib() {
 
 function watchFiles() {
   gulp.watch(paths.scripts.src, scripts);
-  gulp.watch(paths.styles.src, styles);
+  // gulp.watch(paths.styles.src, styles);
+  gulp.watch(paths.styles_scss.src, styles);
   gulp.watch(paths.html.src, includeTask);
 }
 
