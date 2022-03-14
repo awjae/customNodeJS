@@ -88,7 +88,8 @@ function includeTask () {
         .pipe(fileinclude({ 
             prefix: '@@', basepath: '@file' 
         })) 
-        .pipe(gulp.dest('dist/html')); // ★★★★ 변환한 파일의 저장 위치 지정 
+        .pipe(gulp.dest('dist/html')) // ★★★★ 변환한 파일의 저장 위치 지정 
+        .pipe(browserSync.reload( {stream : true} ));
 }; 
 
 function images() {
