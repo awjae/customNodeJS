@@ -7,6 +7,7 @@ import cleanCSS from 'gulp-clean-css';
 import del from 'del';
 import fileinclude from 'gulp-file-include';
 import dartSass from 'sass';
+import spritesmith from 'gulp.spritesmith';
 import gulpSass from 'gulp-sass';
 const sass = gulpSass(dartSass);
 // import imagemin from 'gulp-imagemin';
@@ -35,6 +36,10 @@ const paths = {
   images: {
     src: 'src/images/**/*.{jpg,jpeg,png}',
     dest: 'dist/images/'
+  },
+  sprite: {
+    src: 'src/images/**/*.{jpg,jpeg,png}',
+    dest: 'dist/'
   }
 };
 
@@ -66,6 +71,26 @@ function scripts() {
     .pipe(concat('main.min.js'))
     .pipe(gulp.dest(paths.scripts.dest))
     .pipe(browserSync.reload( {stream : true} ));
+}
+
+function sprite() {
+  const spriteData = gulp.src(paths.sprite.src).pipe(
+    spritesmith({
+      imgName: "sprite.png",
+      cssName: "sprite.scss",
+      padding: 4
+    })
+  );
+  
+  const imgStream = new Promise(function(resolve) {
+    spriteData.img.pipe(gulp.dest(paths.sprite.dest)).on("end", resolve);
+  });
+  
+  const cssStream = new Promise(function(resolve) {
+    spriteData.css.pipe(gulp.dest(paths.sprite.dest)).on("end", resolve);
+  });
+  
+  return Promise.all([imgStream, cssStream]);
 }
 
 function duplicateLib() {
@@ -113,6 +138,7 @@ exports.delete = clean
 exports.scripts = scripts
 exports.styles = styles
 exports.duplicateLib = duplicateLib
+exports.sprite = sprite
 exports.default = function() {
   return gulp.src('src/scripts/*.js')
   .pipe(babel())

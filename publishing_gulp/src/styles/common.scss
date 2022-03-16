@@ -1,3 +1,5 @@
+@import "../../dist/sprite";
+
 .btn {
     display: inline-flex;
 
@@ -5,3 +7,8 @@
         height: 36px;
     }
 }
+
+.test {
+    @include sprite($images);
+}
+
