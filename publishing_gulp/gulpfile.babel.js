@@ -124,13 +124,16 @@ function images() {
 }
 
 function browserSyncFunc() {
-  browserSync.init({ 
-    port : 3333, 
-    server: { 
-      baseDir: 'dist',
-      directory: true
-    } 
-  });
+  return new Promise( resolve => {
+    browserSync.init({ 
+      port : 3333, 
+      server: { 
+        baseDir: 'dist',
+        directory: true
+      } 
+    });
+    resolve();
+  })
 }
 
 exports.includeTask = includeTask;
@@ -147,4 +150,5 @@ exports.default = function() {
   .pipe(gulp.dest('dist'));
 }
 
-exports.build = gulp.series(clean, gulp.parallel(duplicateLib, styles, scripts, includeTask, images, watchFiles, browserSyncFunc));
+// exports.build = gulp.series(clean, gulp.parallel(duplicateLib, styles, scripts, includeTask, images, watchFiles, browserSyncFunc));
+exports.build = gulp.series(clean, gulp.series(duplicateLib, styles, scripts, includeTask, images, browserSyncFunc, watchFiles));
