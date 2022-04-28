@@ -8,7 +8,7 @@
     }
 }
 
-//2이미지 쓸때
+//2이미지 쓸때 스프라이트
 @mixin sprite-2x($sprite) {
     @include sprite-image($sprite);
     @include sprite-position-2x($sprite);
