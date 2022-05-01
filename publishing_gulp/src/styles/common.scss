@@ -14,17 +14,17 @@
     @include sprite-position-2x($sprite);
     @include sprite-width-2x($sprite);
     @include sprite-height-2x($sprite);
-    background-size: $spritesheet-width / 2 auto;
+    background-size:  calc($spritesheet-width / 2) auto;
 }
 @mixin sprite-width-2x($sprite) {
-    width: nth($sprite, 5) / 2;
+    width:  calc(nth($sprite, 5) / 2);
 }  
 @mixin sprite-height-2x($sprite) {
-    height: nth($sprite, 6) / 2;
+    height:  calc(nth($sprite, 6) / 2);
 }
 @mixin sprite-position-2x($sprite) {
-    $sprite-offset-x: nth($sprite, 3) / 2;
-    $sprite-offset-y: nth($sprite, 4) / 2;
+    $sprite-offset-x:  calc(nth($sprite, 3) / 2);
+    $sprite-offset-y:  calc(nth($sprite, 4) / 2);
     background-position: convertPx($sprite-offset-x, $sprite-offset-y);
 }
 @mixin sprite-image($sprite) {
