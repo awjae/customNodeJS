@@ -13,6 +13,7 @@ const sass = gulpSass(dartSass);
 // import imagemin from 'gulp-imagemin';
 import {create as bsCreate} from 'browser-sync';
 const browserSync = bsCreate();
+import iconvLite from 'iconv-lite';
 import fs from 'fs';
 import url from 'url';
 import path from 'path';
@@ -163,12 +164,38 @@ function browserSyncFunc() {
   })
 }
 
+/**
+ * utf8 to euc-kr
+ */
+function convertEncodingFile() {
+  fs.readdir('./dist/html',function(err, filelist){
+    if (err) {
+      return Promise.reject();
+    }
+
+    filelist.forEach(el => {
+       fs.readFile(`./dist/html/${el}`, 'utf8' , (err, data) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        console.log(data)
+        const eucKrStr = iconvLite.encode(data, 'euc-kr');
+        fs.writeFileSync(`./dist/html/${el}`, eucKrStr, { encoding: 'binary' })
+      })
+    })
+  });
+  
+  return Promise.resolve(1);
+}
+
 exports.includeTask = includeTask;
 exports.delete = clean
 exports.scripts = scripts
 exports.styles = styles
 exports.duplicateLib = duplicateLib
 exports.sprite = sprite
+exports.convertEncodingFile = convertEncodingFile
 exports.default = function() {
   return gulp.src('src/scripts/*.js')
   .pipe(babel())
