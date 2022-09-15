@@ -15,6 +15,9 @@ import {create as bsCreate} from 'browser-sync';
 const browserSync = bsCreate();
 import iconvLite from 'iconv-lite';
 import fs from 'fs';
+import url from 'url';
+import path from 'path';
+
 
 const paths = {
   styles: {
@@ -122,6 +125,27 @@ function images() {
     // .pipe(imagemin())
     .pipe(gulp.dest(paths.images.dest));
 }
+// const proxy = createProxyMiddleware('/web', {
+//   target: 'http://...',
+//   changeOrigin: true,
+//   // onProxyRes: function (proxyRes, req, res) {
+//   //     proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:85';
+//   // }
+// });
+
+const parse = function (req, res, next) {
+  let urlParse = url.parse(req.url);
+
+  if (/\.html$/.test(urlParse.pathname)) {
+      let data = fs.readFileSync(path.join('./dist', urlParse.pathname)),
+          source = iconvLite.decode(Buffer.from(data, 'binary'), "EUC-KR");
+
+      res.setHeader("Content-Type", "text/html; charset=UTF-8");
+      res.end(source);
+  } else {
+      next();
+  }
+};
 
 function browserSyncFunc() {
   return new Promise( resolve => {
@@ -129,7 +153,11 @@ function browserSyncFunc() {
       port : 3333, 
       server: { 
         baseDir: 'dist',
-        directory: true
+        directory: true,
+        middleware: [
+          parse
+          //proxy
+        ]
       } 
     });
     resolve();
