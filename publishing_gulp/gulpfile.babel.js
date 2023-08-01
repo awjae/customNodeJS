@@ -147,6 +147,18 @@ const parse = function (req, res, next) {
   }
 };
 
+/* 미들웨어 : 특정 url 요청에 대한 redirection 설정 */
+const spriteUrl = (req, res, next) => {
+  if (req.url === '/images/배포경로/m/sprite.png') {
+    res.writeHead(302, {
+      'Location': 'http://이미지개발서버주소/images/배포경로/m/sprite.png'
+    });
+    res.end();
+  }
+  
+  return next();
+}
+
 function browserSyncFunc() {
   return new Promise( resolve => {
     browserSync.init({ 
