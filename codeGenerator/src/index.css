@@ -1,0 +1,45 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+.components {
+  margin-bottom: 100px;
+  padding: 50px;
+  width: 100%;
+  height: 250px;
+}
+.components .board {
+  flex-wrap: wrap;
+}
+.components .board button {
+  width: 150px;
+  height: 50px;
+  margin: 10px;
+}
+
+.app > .board {
+  padding: 25px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.app > .board > div {
+  padding: 25px;
+  width: calc(100% - 150px);
+}
+.board > div textarea {
+  width: 100%;
+}
+.board button {
+  width: 100px;
+  height: 100px;
+}
