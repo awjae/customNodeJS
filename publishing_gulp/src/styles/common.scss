@@ -1,48 +1,12 @@
-@import "../../dist/sprite";
+
 
 .btn {
-    display: inline-flex;
+  display: inline-flex;
 
-    &.lg {
-        height: 36px;
-    }
+  &.lg {
+      height: 36px;
+  }
 }
-
-//2이미지 쓸때 스프라이트
-@mixin sprite-2x($sprite) {
-    @include sprite-image($sprite);
-    @include sprite-position-2x($sprite);
-    @include sprite-width-2x($sprite);
-    @include sprite-height-2x($sprite);
-    background-size:  calc($spritesheet-width / 2) auto;
-}
-@mixin sprite-width-2x($sprite) {
-    width:  calc(nth($sprite, 5) / 2);
-}  
-@mixin sprite-height-2x($sprite) {
-    height:  calc(nth($sprite, 6) / 2);
-}
-@mixin sprite-position-2x($sprite) {
-    $sprite-offset-x:  calc(nth($sprite, 3) / 2);
-    $sprite-offset-y:  calc(nth($sprite, 4) / 2);
-    background-position: convertPx($sprite-offset-x, $sprite-offset-y);
-}
-@mixin sprite-image($sprite) {
-    $sprite-image: nth($sprite, 9);
-    background-image: url(#{$sprite-image});
-}
-@function convertPx($sprite-offset-x, $sprite-offset-y) {
-    @if ($sprite-offset-x == 0px) {
-      $sprite-offset-x: 0
-    }
-    @if ($sprite-offset-y == 0px) {
-      $sprite-offset-y: 0
-    }
-    @return $sprite-offset-x  $sprite-offset-y;
-}
-//
-
 .test {
-    @include sprite($images);
+@include sprite($images);
 }
-
